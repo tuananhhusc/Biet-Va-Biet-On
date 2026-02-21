@@ -1,0 +1,4 @@
+:HL["/Biet-Va-Biet-On/_next/static/chunks/26a8e9d203e6235d.css","style"]
+:HL["/Biet-Va-Biet-On/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/Biet-Va-Biet-On/_next/static/media/e4505858a30c79c2-s.p.0f58a291.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"buildId":"RlEs4Oy2Nq7P-XTLFyaMy","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
