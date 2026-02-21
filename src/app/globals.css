@@ -1,26 +1,285 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+  --primary: #0033a0;
+  --accent: #d30d4f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-eb-garamond);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0f1a;
+  --foreground: #e2e8f0;
+  --primary: #4a7bc8;
+  --accent: #e85d7a;
+}
+
+/* Smooth transitions for theme switching - only for color-related properties */
+html {
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+/* Smooth transitions for common elements */
+section,
+div,
+article,
+header,
+footer,
+aside,
+nav {
+  transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out;
+}
+
+/* Text elements transition */
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+td,
+th {
+  transition: color 200ms ease-in-out;
+}
+
+/* Faster transitions for interactive elements */
+button,
+a {
+  transition: background-color 150ms ease-in-out, border-color 150ms ease-in-out,
+    color 150ms ease-in-out, transform 150ms ease-in-out, box-shadow 150ms ease-in-out;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+/* Enhanced dark mode contrast */
+.dark {
+  color-scheme: dark;
+}
+
+/* Academic typography improvements */
+.prose {
+  max-width: 65ch;
+}
+
+.prose p {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  margin-bottom: 1.25em;
+}
+
+.prose h2,
+.prose h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+/* Enhanced spacing for academic reading */
+.prose>*+* {
+  margin-top: 1.5em;
+}
+
+/* Better paragraph spacing */
+.prose p+p {
+  margin-top: 1.25em;
+}
+
+/* Mobile-specific improvements - Enhanced contrast */
+@media (max-width: 640px) {
+
+  /* Better contrast for text on mobile light mode */
+  body {
+    background-color: #ffffff;
+    color: #0f172a;
+  }
+
+  /* Ensure strong text contrast on mobile - only for elements without explicit color classes */
+  .prose p:not([class*="text-"]),
+  .prose span:not([class*="text-"]),
+  .prose li:not([class*="text-"]) {
+    color: #0f172a;
+    /* slate-900 for maximum contrast */
+  }
+
+  /* Headings should be darker on mobile */
+  .prose h1:not([class*="text-"]),
+  .prose h2:not([class*="text-"]),
+  .prose h3:not([class*="text-"]) {
+    color: #020617;
+    /* slate-950 */
+    font-weight: 600;
+  }
+
+  /* Reduce spacing on mobile */
+  .prose>*+* {
+    margin-top: 1em;
+  }
+
+  .prose h2,
+  .prose h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+  }
+
+  /* Better text sizing on mobile */
+  html {
+    font-size: 16px;
+    /* Prevent zoom on iOS */
+  }
+
+  /* Improve touch targets for interactive elements */
+  button[type="button"],
+  a[href] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better scrolling on mobile */
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent text size adjustment */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Increase line height for better readability on mobile */
+  .prose p {
+    line-height: 1.85;
+    margin-bottom: 1.5em;
+  }
+}
+
+/* Tablet and up - restore normal colors */
+@media (min-width: 641px) {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* Better table styling */
+.prose table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.prose th {
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Improved blockquote */
+.prose blockquote {
+  border-left-width: 4px;
+  border-left-color: var(--accent);
+  padding-left: 1.5rem;
+  font-style: italic;
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+/* Better code blocks */
+.prose code {
+  font-size: 0.9em;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: background-color 200ms ease-in-out;
+}
+
+.dark .prose code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Prevent flash of unstyled content */
+html {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+/* Ensure smooth theme transitions */
+html.dark {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+html:not(.dark) {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Ensure consistent backgrounds in dark mode */
+.dark section,
+.dark div:not([class*="bg-"]):not([class*="from-"]):not([class*="to-"]),
+.dark article {
+  background-color: transparent;
+}
+
+/* Fix white backgrounds in dark mode - more specific selectors */
+.dark .bg-white {
+  background-color: rgb(15 23 42) !important;
+  /* slate-900 */
+  transition: background-color 200ms ease-in-out;
+}
+
+/* Fix gradients in dark mode */
+.dark [class*="from-white"],
+.dark [class*="via-white"],
+.dark [class*="to-white"] {
+  --tw-gradient-from: rgb(15 23 42) !important;
+  --tw-gradient-to: rgb(15 23 42) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.dark [class*="from-slate-50"],
+.dark [class*="via-slate-50"],
+.dark [class*="to-slate-50"] {
+  --tw-gradient-from: rgb(15 23 42) !important;
+  --tw-gradient-to: rgb(15 23 42) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+/* Ensure text visibility in dark mode - more specific */
+.dark .text-slate-900:not([class*="dark:text-"]),
+.dark .text-slate-800:not([class*="dark:text-"]),
+.dark .text-slate-700:not([class*="dark:text-"]) {
+  color: rgb(226 232 240) !important;
+  /* slate-200 */
+  transition: color 200ms ease-in-out;
+}
+
+/* Ensure borders transition smoothly */
+.dark [class*="border-slate-200"],
+.dark [class*="border-slate-300"] {
+  border-color: rgb(30 41 59) !important;
+  /* slate-800 */
+  transition: border-color 200ms ease-in-out;
 }
